@@ -1,0 +1,23 @@
+body {
+	margin: 0;
+	padding: 0;
+	background: black;
+}
+
+.tombstone {
+	position: absolute;	
+}
+
+.tombstone img {
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+.epitaph {
+	position: absolute;
+	text-align: center;
+	color: black;
+	left: 25%;
+	right: 25%;
+}

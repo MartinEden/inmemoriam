@@ -1,0 +1,5 @@
+chevron>=0.13.1
+pathlib>=1.0.1
+flask>=1.1.2
+beautifulsoup4>=4.9.1
+requests>=2.23.0
