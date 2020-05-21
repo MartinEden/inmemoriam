@@ -1,11 +1,9 @@
 #!/usr/bin/env python3
 import chevron
-import math
-import requests
-from bs4 import BeautifulSoup
-from io import StringIO
-from random import randint
+from random import randint, random
 from pathlib import Path
+
+from fetch import fetch_memorials
 
 
 class Tombstone:
@@ -37,17 +35,7 @@ class Tombstone:
 		return self.y + self.height()
 
 
-def sawtooth(x):
-	r = x % 100
-	r /= 50
-	if r < 1:
-		y = r
-	else:
-		y = (1 + (1 - r)) - 0.1
-	return y
-
-
-def gen_tombstone(memorial, y):
+def gen_tombstone(memorial, x, y):
 	name, cause, is_player = memorial
 	if is_player:
 		size = 400
@@ -55,8 +43,8 @@ def gen_tombstone(memorial, y):
 		size = 200
 		cause = None
 	return Tombstone(
-		x=randint(0, 80), 
-		y=y + 300,
+		x=x, 
+		y=y + 300 + randint(0, 100),
 		size=size,
 		name=name,
 		cause=cause
@@ -76,31 +64,17 @@ def render(tstones, fo):
 	fo.write(footer)
 
 
-def fetch_memorials():
-	raw = requests.get('http://barrowmaze.wikidot.com/')
-	soup = BeautifulSoup(raw.text, features="lxml")
-	header = soup.find("span", string="Character Memorial")
-	table = header.parent.next_sibling.next_sibling.find("table")
-	rows = table.find_all("tr")
-	for row in rows[1:]:
-		cols = row.find_all("td")
-		a = cols[0].find("a")
-		if a:
-			name = a.string
-			is_player = True
-		else:
-			name = cols[0].string			
-			is_player = False
-		cause = cols[2].string
-		yield (name.strip(), cause.strip(), is_player)
-
-
 def convert_memorials_to_tombstones(memorials):
 	memorials = list(memorials)
-	i = 0
+	y = 0
+	x = randint(0, 5)
 	for memorial in memorials:
-		yield gen_tombstone(memorial, i * 30)
-		i += 1
+		if x >= 85:
+			x = randint(0, 5)
+			y += 250
+		tombstone = gen_tombstone(memorial, x, y)		
+		x += (random() * 0.05 + 0.02) * tombstone.width
+		yield tombstone
 
 
 if __name__ == "__main__":
