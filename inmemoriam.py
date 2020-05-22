@@ -6,6 +6,11 @@ from pathlib import Path
 from fetch import fetch_memorials
 
 
+top_margin = 300
+tombstone_size_player = 350
+tombstone_size_hireling = 200
+
+
 class Tombstone:
 	def __init__(self, x, y, size, name, cause):
 		self.width = size
@@ -38,13 +43,12 @@ class Tombstone:
 def gen_tombstone(memorial, x, y):
 	name, cause, is_player = memorial
 	if is_player:
-		size = 350
+		size = tombstone_size_player
 	else:
-		size = 200
-		#cause = None
+		size = tombstone_size_hireling
 	return Tombstone(
 		x=x, 
-		y=y + 300 + randint(0, 100),
+		y=y + top_margin + randint(0, 100),
 		size=size,
 		name=name,
 		cause=cause
@@ -65,7 +69,6 @@ def render(tstones):
 
 
 def convert_memorials_to_tombstones(memorials):
-	memorials = list(memorials)
 	y = 0
 	x = randint(0, 5)
 	for memorial in memorials:
@@ -78,6 +81,6 @@ def convert_memorials_to_tombstones(memorials):
 
 
 if __name__ == "__main__":
-	tstones = convert_memorials_to_tombstones(fetch_memorials())
-	tstones = sorted(tstones, key=lambda t: t.bottom())
+	memorials = fetch_memorials()
+	tstones = convert_memorials_to_tombstones(memorials)
 	render(tstones)
