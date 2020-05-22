@@ -4,5 +4,8 @@ rm -r output
 
 set -e
 mkdir  output
-./inmemoriam.py > output/output.html
+./inmemoriam.py > output/index.html
 cp resources/* output/
+cp CNAME output/
+
+cd output && surge .

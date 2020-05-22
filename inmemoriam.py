@@ -51,7 +51,7 @@ def gen_tombstone(memorial, x, y):
 	)
 
 
-def render(tstones, fo):
+def render(tstones):
 	tombstone_template = Path('tombstone.mustache').read_text()
 	header = Path('header.html').read_text()
 	footer = Path('footer.html').read_text()
@@ -80,5 +80,4 @@ def convert_memorials_to_tombstones(memorials):
 if __name__ == "__main__":
 	tstones = convert_memorials_to_tombstones(fetch_memorials())
 	tstones = sorted(tstones, key=lambda t: t.bottom())
-	with open('output.html', 'w') as f:
-		render(tstones, f)
+	render(tstones)
