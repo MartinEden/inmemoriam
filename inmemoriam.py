@@ -22,14 +22,14 @@ class Tombstone:
 			'name': self.name,
 			'cause': self.cause,
 			'font': 12,
-			'text_width': self.width * 0.5,
+			'text_width': self.width * 0.65,
 			'text_x': self.width / 4.5,
-			'text_y': self.width / 5
+			'text_y': self.width / 5.5
 		}
 		return chevron.render(template, data)
 
 	def height(self):
-		return self.width * (521 / 800) # dimensions of image
+		return self.width * (431 / 441) # dimensions of image
 
 	def bottom(self):
 		return self.y + self.height()
@@ -38,10 +38,10 @@ class Tombstone:
 def gen_tombstone(memorial, x, y):
 	name, cause, is_player = memorial
 	if is_player:
-		size = 400
+		size = 350
 	else:
 		size = 200
-		cause = None
+		#cause = None
 	return Tombstone(
 		x=x, 
 		y=y + 300 + randint(0, 100),
@@ -69,11 +69,11 @@ def convert_memorials_to_tombstones(memorials):
 	y = 0
 	x = randint(0, 5)
 	for memorial in memorials:
-		if x >= 85:
-			x = randint(0, 5)
+		if x >= 800:
+			x = randint(0, 25)
 			y += 250
 		tombstone = gen_tombstone(memorial, x, y)		
-		x += (random() * 0.05 + 0.02) * tombstone.width
+		x += (random() * 0.5 + 1) * tombstone.width
 		yield tombstone
 
 

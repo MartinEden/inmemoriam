@@ -1,3 +1,8 @@
+@font-face {
+  font-family: tombstone;
+  src: url("press-start.k.ttf");
+}
+
 body {
 	margin: 0;
 	padding: 0;
@@ -14,7 +19,8 @@ body {
 	left: 0;
 }
 
-.epitaph {
+.epitaph {	
+	font-family: tombstone;
 	position: absolute;
 	text-align: center;
 	color: black;
