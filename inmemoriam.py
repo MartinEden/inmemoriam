@@ -58,10 +58,10 @@ def render(tstones, fo):
 
 	snippets = [t.render(tombstone_template) for t in tstones]
 
-	fo.write(header)
+	print(header)
 	for s in snippets:
-		fo.write(s)
-	fo.write(footer)
+		print(s)
+	print(footer)
 
 
 def convert_memorials_to_tombstones(memorials):
