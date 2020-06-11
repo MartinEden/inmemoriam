@@ -28,6 +28,19 @@ body {
 	right: 25%;
 }
 
+.music-button {
+	font-family: tombstone;
+	position: absolute;
+	top: 0;
+	left: 50%;
+	right: 50%;
+	width: 11em;
+	color: black;
+	background: rgb(179, 179, 179);
+	border: 5px rgb(38, 38, 38) solid;
+	padding: 5px;
+}
+
 footer {
 	position: fixed;
 	text-align: right;
